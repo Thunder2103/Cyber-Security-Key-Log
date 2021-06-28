@@ -1,0 +1,9 @@
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\bin\Debug\Thing.exe.config
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\bin\Debug\Thing.exe
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\bin\Debug\Thing.pdb
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\obj\Debug\Thing.csprojAssemblyReference.cache
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\obj\Debug\Thing.Properties.Resources.resources
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\obj\Debug\Thing.csproj.GenerateResource.cache
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\obj\Debug\Thing.csproj.CoreCompileInputs.cache
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\obj\Debug\Thing.exe
+C:\Users\Thomas\Coding\Learning C#\Thing\Thing\obj\Debug\Thing.pdb
